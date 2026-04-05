@@ -4,4 +4,4 @@ pub mod camera;
 
 // Реэкспортируем типы из player для удобства
 pub use player::Player; 
-pub use camera::MainCamera;
+pub use camera::MainCamera3POV;

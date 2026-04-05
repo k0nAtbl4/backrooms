@@ -7,7 +7,7 @@ mod systems;
 
 // Импортируем нужные типы и функции
 use crate::components::Player;
-use crate::systems::camera::{camera_follow_system, camera_movement_system};
+use crate::systems::camera::{camera_follow_system, camera_rotation_system};
 use crate::temp::setup;
 use crate::systems::player::player_movement_system;
 
@@ -18,6 +18,6 @@ fn main() {
             PhysicsPlugins::default(), // Физика Avian
         ))
         .add_systems(Startup, setup)
-        .add_systems(Update, (player_movement_system, camera_follow_system))
+        .add_systems(Update, (player_movement_system, camera_follow_system,camera_rotation_system))
         .run();
 }

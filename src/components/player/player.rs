@@ -6,6 +6,7 @@ use bevy::prelude::*;
 pub struct Player{
     pub speed: f32,        // скорость движения
     pub sensitivity: f32,  // чувствительность мыши (потом пригодится)
+    pub rotation: Vec3, // угол поворота
 }
 
 #[derive(Component, PartialEq)]

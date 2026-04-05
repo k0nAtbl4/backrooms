@@ -1,7 +1,7 @@
 use avian3d::prelude::*;
 use bevy::prelude::*;
 
-use crate::components::{MainCamera, Player};
+use crate::components::{MainCamera3POV, Player};
 
 pub fn setup(
     mut commands: Commands,
@@ -25,13 +25,13 @@ pub fn setup(
 
     // --- Пол ---
     commands.spawn((
-        Mesh3d(meshes.add(Plane3d::default().mesh().size(20.0, 20.0))),
+        Mesh3d(meshes.add(Plane3d::default().mesh().size(100.0, 100.0))),
         MeshMaterial3d(materials.add(StandardMaterial {
             base_color: Color::srgb(0.3, 0.5, 0.3),
             ..default()
         })),
         RigidBody::Static,
-        Collider::cuboid(10.0, 0.3, 10.0),
+        Collider::cuboid(100.0, 0.3, 100.0),
     ));
 
     // --- Игрок ---
@@ -49,7 +49,8 @@ pub fn setup(
         LinearVelocity::default(), // ← явно добавляем компонент скорости
         Player {
             speed: 15.0,
-            sensitivity: 0.5,
+            sensitivity: 0.01,
+            rotation: Vec3::ZERO,
         },
     ));
 
@@ -58,6 +59,7 @@ pub fn setup(
         Camera3d::default(),
         Transform::from_xyz(0.0, 0.0, 0.0)
             .with_rotation(Quat::from_rotation_y(std::f32::consts::PI)),
-        MainCamera,
+        MainCamera3POV{
+        },
     ));
 }

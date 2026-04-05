@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::components::{MainCamera, Player};
+use crate::components::{MainCamera3POV, Player};
 
 use avian3d::prelude::*;
 
@@ -8,7 +8,7 @@ pub fn player_movement_system(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
     mut player_query: Query<(&mut Transform, &Player), With<Player>>,
-    camera_query: Query<&Transform, (With<MainCamera>, Without<Player>)>,
+    camera_query: Query<&Transform, (With<MainCamera3POV>, Without<Player>)>,
 ) {
     for (mut player_transform, player) in player_query.iter_mut() {
         let cam = match camera_query.single() {
@@ -35,7 +35,7 @@ pub fn player_movement_system(
 
 
         if keyboard_input.pressed(KeyCode::Space) {
-            direction += cam.up().as_vec3(); // need to rewrite
+            direction.y += 5.0; // need to rewrite
         }
         let movement = direction.normalize_or_zero() * player.speed * time.delta_secs();
 

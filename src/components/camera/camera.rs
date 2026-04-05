@@ -3,4 +3,6 @@ use bevy::prelude::*;
 
 
 #[derive(Component)]
-pub struct MainCamera;    // маркер для основной камеры
+pub struct MainCamera3POV{
+
+}
