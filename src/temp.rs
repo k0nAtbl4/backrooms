@@ -7,6 +7,7 @@ pub fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    asset_server: Res<AssetServer>,
 ) {
     // --- Освещение ---
     commands.spawn((
@@ -36,21 +37,13 @@ pub fn setup(
 
     // --- Игрок ---
     commands.spawn((
-        Mesh3d(meshes.add(Sphere::new(0.5))),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: Color::srgb(0.2, 0.5, 0.8),
-            metallic: 0.7,
-            ..default()
-        })),
+        SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("player/player.gltf"))),
         Transform::from_xyz(0.0, 0.5, 0.0),
-        RigidBody::Dynamic,
-        Collider::capsule(0.5, 1.0),
-        LockedAxes::ROTATION_LOCKED,
-        LinearVelocity::default(), // ← явно добавляем компонент скорости
         Player {
             speed: 15.0,
             sensitivity: 0.01,
             rotation: Vec3::ZERO,
+            animation_state: Default::default(),
         },
     ));
 
@@ -59,7 +52,6 @@ pub fn setup(
         Camera3d::default(),
         Transform::from_xyz(0.0, 0.0, 0.0)
             .with_rotation(Quat::from_rotation_y(std::f32::consts::PI)),
-        MainCamera3POV{
-        },
+        MainCamera3POV {},
     ));
 }

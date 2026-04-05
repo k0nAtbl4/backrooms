@@ -32,9 +32,9 @@ pub fn camera_rotation_system(
     time: Res<Time>,
 ) {
     for ((mut transform, mut player)) in query.iter_mut() {
-        let y_rotation = player.rotation.y - mouse_motion.delta.x * player.sensitivity;  // y - горизонтальная ось
-        let x_rotation = player.rotation.x + mouse_motion.delta.y * player.sensitivity;  // x - вертикальная ось
-        
+        let y_rotation = player.rotation.y - mouse_motion.delta.x * player.sensitivity; // y - горизонтальная ось
+        let x_rotation = player.rotation.x + mouse_motion.delta.y * player.sensitivity; // x - вертикальная ось
+
         // -0.63 and 0.48
         if x_rotation > 0.48 || x_rotation < -0.63 {
             return;
